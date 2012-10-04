@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>HN2weeks</title>
+    <link type="text/css" rel="stylesheet" href="/css/screen.css" media="all">
+  </head>
+  <body>
+    <h1 id="page-title">HN2weeks</h1>
+    <section id="items">
+      {% for result in results %}
+        <article>
+          {% if result.title and result.url %}
+          <h1><a href="{{ result.url }}" title="{{ result.title }}">{{ forloop.counter }}. {{ result.title }}</a></h1>
+          {% endif %}
+          {% if result.title and not result.url %}
+            <h1>{{ forloop.counter }}. {{ result.title }}</h1>
+          {% endif %}
+          {% if result.url and not result.title %}
+            <h1><a href="{{ result.url }}" title="(Untitled)">{{ forloop.counter }}. (Untitled)</a></h1>
+          {% endif %}
+          <aside>
+            {% if result.points %}
+              {{ result.points }}
+            {% endif %}
+             points by 
+            {% if result.username %}
+              {{ result.username }}
+            {% endif %}
+            {% if result.create_ts %}
+              {{ result.create_ts|timesince }}
+            {% endif %}
+             ago 
+            {% if result.id and result.num_comments %}
+             | <a href="http://news.ycombinator.com/item?id={{result.id}}" title="Discuss">
+              {{ result.num_comments }} comments</a>
+            {% endif %}
+          </aside>
+        </article>
+      {% endfor %}
+      <footer>
+        <p>These are the 35 most commented items posted on <a href="http://news.ycombinator.com" title="Hacker News">Hacker News</a> between {{ dates.from_date }} and {{ dates.to_date }}. Next scheduled update: {{ dates.next_update }}. Built with the <a href="http://www.hnsearch.com" title="HNSearch">HNSearch API</a> on Google AppEngine.</p>
+        <p>&mdash; <a href="http://www.therock.nl" title="Alexandervn">Alexandervn</a></p>
+      </footer>
+    </section>
+  </body>
+</html>
