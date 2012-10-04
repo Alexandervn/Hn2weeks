@@ -1,0 +1,5 @@
+Most discussed Hacker News posts from the last 2 weeks, written for Google App Engine. 
+
+Visit here: http://hn2weeks.appspot.com/
+
+Just a simple script for personal use. It calls the HNSearch API on every request and caches nothing.
